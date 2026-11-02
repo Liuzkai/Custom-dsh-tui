@@ -1,0 +1,27 @@
+# dsh profile 用户补丁层：在 bundle 层之后、--patch 覆盖层之前应用。
+#
+# 这是**模板**，不是本机原样。本机这份文件里的 `llm-pi-ai` 段由
+# sync-dsh-tui-tt-switch.mjs 从 profiles/web/cordis.patch.yml 自动拷过来，
+# 开机时也就是启动垫片每次刷新（见 dsh-tui.cmd）。
+#
+# 下面两段是**可选**的本机定制，按需取消注释：
+#
+#   1. 默认模型：把 agent-default-model 指到你自己的 provider。
+#      provider id 必须与 llm-pi-ai.providers 里的某个键一致。
+#
+#   2. 欢迎页：welcomeNoticeVersion 设成你不再想看的那个版本号，
+#      升级 dsh-tui 后新版本会再弹一次。
+#
+# 注意：**不要**把 apiKey 明文写进这里。dsh 支持 `apiKeyEnv`，改用它——
+# 密钥放用户环境变量或 $DSH_HOME/.credentials.yaml，文件本身可公开。
+
+# - id: agent-default-model
+#   name: "@deepseek-ai/dsh-agent-default-model"
+#   config:
+#     provider: my-provider
+#     model: deepseek-v4.1-flash
+
+# - id: ui-settings-general
+#   name: "@deepseek-ai/dsh-client-ui-settings-general"
+#   config:
+#     welcomeNoticeVersion: 2026-09-28.1

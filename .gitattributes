@@ -1,0 +1,13 @@
+# 默认按文本处理并统一成 LF（跨平台编辑安全）
+* text=auto eol=lf
+
+# Windows 批处理必须 CRLF：cmd.exe 解析 label / goto 时对纯 LF 有坑
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# PowerShell 两种都吃，保持 LF 以便跨平台 diff
+*.ps1 text eol=lf
+*.psm1 text eol=lf
+
+# 脚本按原样保留可执行位语义（非 Windows 平台 clone 后可直接跑）
+*.mjs text eol=lf
