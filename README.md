@@ -65,8 +65,12 @@ dsh-tui.cmd
 
 2. **填 profile 补丁层** `$DSH_HOME/profiles/dsh-tui/cordis.patch.yml`
 
-   模板是空的（全是注释）。要让 tt-switch 同步生效，先装 tt-switch 并让它往 `profiles/web`
+   模板只留一个空数组 `[]`。要让 tt-switch 同步生效，先装 tt-switch 并让它往 `profiles/web`
    写一次路由；之后每次启动垫片会自动把那段拷过来。默认模型改 `agent-default-model`。
+
+   > ⚠️ 那个 `[]` **不能删**。dsh 解析这一层时要求顶层是 YAML 数组，**全是注释的文件会被解析成
+   > `null` 并直接抛错**（`must be a top-level YAML array of loader patch entries`），dsh-tui 就
+   > 起不来了。手工清空这个文件时务必留下 `[]`。
 
 **密钥绝不写进这些文件。** dsh 的 provider 配置用 `apiKeyEnv: <变量名>` 指向用户环境变量，
 或者交给 `$DSH_HOME/.credentials.yaml` 管。本仓库里没有任何密钥，也不该有。

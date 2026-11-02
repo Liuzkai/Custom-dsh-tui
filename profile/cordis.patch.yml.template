@@ -1,10 +1,11 @@
 # dsh profile 用户补丁层：在 bundle 层之后、--patch 覆盖层之前应用。
 #
-# 这是**模板**，不是本机原样。本机这份文件里的 `llm-pi-ai` 段由
-# sync-dsh-tui-tt-switch.mjs 从 profiles/web/cordis.patch.yml 自动拷过来，
-# 开机时也就是启动垫片每次刷新（见 dsh-tui.cmd）。
+# 下面的 `[]` **不能删**：dsh 解析这一层时要求顶层是 YAML 数组，
+# 全是注释的文件会被解析成 null 并直接抛错，dsh-tui 就起不来了。
+# 本机这份文件里的 `llm-pi-ai` 段由 sync-dsh-tui-tt-switch.mjs 从
+# profiles/web/cordis.patch.yml 自动拷过来，启动垫片每次刷新。
 #
-# 下面两段是**可选**的本机定制，按需取消注释：
+# 下面两段是**可选**的本机定制，按需取消注释（并删掉单独的 `[]`）：
 #
 #   1. 默认模型：把 agent-default-model 指到你自己的 provider。
 #      provider id 必须与 llm-pi-ai.providers 里的某个键一致。
@@ -14,6 +15,8 @@
 #
 # 注意：**不要**把 apiKey 明文写进这里。dsh 支持 `apiKeyEnv`，改用它——
 # 密钥放用户环境变量或 $DSH_HOME/.credentials.yaml，文件本身可公开。
+
+[]
 
 # - id: agent-default-model
 #   name: "@deepseek-ai/dsh-agent-default-model"

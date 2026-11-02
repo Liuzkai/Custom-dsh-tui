@@ -35,13 +35,16 @@ dsh plugin --profile dsh-tui add @deepseek-harness-tui/dsh-tui@0.18.0
   `C:\Users\<名字>`。本机专用的值（用户名、内网地址、provider id）留在本机，不进仓库。
 - **文档跟代码一起改**。`docs/` 里三篇分别对应三个改造；改行为就更新对应那篇和 README 的表格。
 
-## 三条容易被"顺手改坏"的线
+## 四条容易被"顺手改坏"的线
 
-1. **CodeBuddy 转换的 `rawContent` 是块数组**，不是单对象。写成 `rawContent.type === ...` 会静默
-   丢失全部思考过程——这正是本仓库第一版踩过的坑。改解析逻辑后一定要用 `--dry-run` 抽查导入
-   数量，并用读回脚本确认 reasoning 块还在。
-2. **盘符大小写归一**。CodeBuddy 记小写盘符，不归一会在会话库分裂出重复的工程目录。
-3. **PATH 顺序**。垫片靠"排在 npm 全局 bin 前面"生效。任何改动 PATH 的脚本都要显式说明这点，
+1. **`cordis.patch.yml` 顶层必须有 `[]`**。dsh 要求这一层是 YAML 数组；**全是注释的文件解析成
+   `null` 会直接抛错**（`must be a top-level YAML array of loader patch entries`），dsh-tui 起不来。
+   这个坑在本仓库第一版真的存在（模板写成了纯注释），已修。改模板或写清理脚本时留好 `[]`。
+2. **CodeBuddy 转换的 `rawContent` 是块数组**，不是单对象。写成 `rawContent.type === ...` 会静默
+   丢失全部思考过程——这也是踩过的坑。改解析逻辑后一定要用 `--dry-run` 抽查导入数量，并用读回
+   脚本确认 reasoning 块还在。
+3. **盘符大小写归一**。CodeBuddy 记小写盘符，不归一会在会话库分裂出重复的工程目录。
+4. **PATH 顺序**。垫片靠"排在 npm 全局 bin 前面"生效。任何改动 PATH 的脚本都要显式说明这点，
    且默认不要擅自修改用户环境变量（`install.ps1` 的 `-AddToPath` 就是为此存在）。
 
 ## 验证纪律
