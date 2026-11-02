@@ -3,7 +3,7 @@
  * 把 tt-switch 写进 dsh `web` profile 的模型路由，同步到 `dsh-tui` profile。
  *
  * tt-switch 只维护 $DSH_HOME/profiles/web/cordis.patch.yml 里的
- * `llm-pi-ai.providers`（本地代理 http://127.0.0.1:15721/deepseek-harness/<id>/v1），
+ * `llm-pi-ai.providers`（指向本机 tt-switch 代理的 localhost 路由），
  * dsh-tui 是独立 profile，不共享这份配置，所以 /model 里默认看不到这些路由。
  *
  * 本脚本从 web 的补丁里原样抠出 `- id: llm-pi-ai` 整段，写进 dsh-tui 的
